@@ -24,6 +24,7 @@ def transform_and_verify(aig_filename, transform_cmds, stage_name, engines, time
     abc_script = f"read {aig_filename}; {transform_cmds}; write {transformed_aig}"
     
     # Run ABC to transform the circuit
+    print("abc_script:", abc_script)
     result = subprocess.run(["abc", "-c", abc_script], capture_output=True, text=True)
 
     # Show transform log for debugging

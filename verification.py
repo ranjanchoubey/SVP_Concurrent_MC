@@ -18,6 +18,7 @@ def abc_worker(aig_file, engine, timeout, result_queue):
     """
     # Construct ABC command
     cmd = f'read {aig_file}; {engine}; print_stats'
+    print(f"\n Running ABC command: '{cmd}' with timeout {timeout} seconds on engine {engine}")
     start = time.time()
     
     try:
@@ -58,6 +59,8 @@ def run_concurrent_engines(aig_file, engines, timeout):
     # Start a process for each verification engine
     processes = [mp.Process(target=abc_worker, args=(aig_file, engine, timeout, result_queue)) 
                 for engine in engines]
+    
+    print(f"Starting {len(processes)} processes for engines: {', '.join(engines)}.\n\n",processes)
     
     for p in processes: 
         p.start()
