@@ -1,7 +1,5 @@
 venv
 abc
-dataset
-temp/
 abc.history
 *.csv
 __pycache__
