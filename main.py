@@ -80,11 +80,19 @@ def batch_run(aig_files, engines, timeout, temp_dir):
 def main():
     """
     Main entry point for the verification framework.
-    
-    Configures verification parameters, runs the verification process,
-    and saves results to a CSV file.
+
+    Run multiple solvers concurrently. If one of them solves early, we kill the rest. This improves efficiency.
+
+    | Engine  | Description                                                   |
+    |---------|---------------------------------------------------------------|
+    | `pdr`   | Property Directed Reachability (strong for safety properties) |
+    | `bmc`   | Bounded Model Checking                                        |
+    | `int`   | Interpolation-based model checking                            |
+    | `sim`   | Random simulation (lightweight, fast check)                   |
+    | `dprove`| Automatic selection of best proving strategy                  |       |
+    | `smt`   | SMT-based reasoning (if ABC is compiled with SMT support)     |
     """
-    # Configuration
+    
     engines = ["pdr", "bmc", "int", "dprove", "sim"]
     timeout = 120
     
